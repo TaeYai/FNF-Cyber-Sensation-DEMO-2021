@@ -19,3 +19,4 @@ Roses:senpai:6
 Thorns:spirit:6
 Open-System:taeyai:7
 Wear-A-Mask:taeyai:7
+Last-Hope:taeyai-evil:7

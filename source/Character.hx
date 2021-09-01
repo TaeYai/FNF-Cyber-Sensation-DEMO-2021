@@ -514,6 +514,23 @@ class Character extends FlxSprite
 				addOffset("singDOWN", 50, -96);
 
 				playAnim('idle');
+			case 'taeyai-evil':
+				tex = Paths.getSparrowAtlas('break/Taeyai_fly', 'taeyai');
+				frames = tex;
+				animation.addByPrefix('idle', 'TaeYai fly 0', 24);
+				animation.addByPrefix('singUP', 'TaeYai fly up', 24);
+				animation.addByPrefix('singRIGHT', 'TaeYai fly right', 24);
+				animation.addByPrefix('singDOWN', 'TaeYai fly down', 24);
+				animation.addByPrefix('singLEFT', 'TaeYai fly left', 24);
+
+				addOffset('idle');
+				addOffset("singUP", 4, 60);
+				addOffset("singRIGHT", -100, -23);
+				addOffset("singLEFT", 40, 0);
+				addOffset("singDOWN", 0, -96);
+
+				playAnim('idle');
+
 		}
 
 		dance();

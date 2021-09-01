@@ -235,8 +235,11 @@ class PlayState extends MusicBeatState
 
 	//TaeYai Room
 	var roombg:FlxSprite;
+	var beam:FlxSprite;
 	var swagCounter:Int;
 	var hologramintro:FlxSprite = new FlxSprite(0, 0);
+	//TaeYai Evil
+	private var floatvalve:Float = 0;
 
 
 	override public function create()
@@ -778,10 +781,55 @@ class PlayState extends MusicBeatState
 						hologramintro.screenCenter();
 
 						hologramintro.scrollFactor.set();
+
+						case "last-hope":
+							roombg = new FlxSprite(-600, -200).loadGraphic(Paths.image('break/BG', 'taeyai'));
+							roombg.antialiasing = true;
+							roombg.scrollFactor.set(0.9, 0.9);
+							roombg.active = false;
+							add(roombg);
+
+							beam = new FlxSprite(-600, -200).loadGraphic(Paths.image('break/BEAM', 'taeyai'));
+							beam.antialiasing = true;
+							beam.scrollFactor.set(0.9, 0.9);
+							beam.active = false;
+							add(beam);
+
+							hologramintro.frames = Paths.getSparrowAtlas('break/intro3', 'taeyai');
+							hologramintro.animation.addByPrefix("idle", "intro", 24);
+							hologramintro.antialiasing = true;
+							hologramintro.screenCenter();
+
+							hologramintro.scrollFactor.set();
 						
 					}
 					
 				}
+			case 'lastroom':
+				{
+					defaultCamZoom = 0.6;
+					isStoryMode = true;
+					curStage = 'lastroom';
+
+					roombg = new FlxSprite(-600, -200).loadGraphic(Paths.image('break/BG', 'taeyai'));
+					roombg.antialiasing = true;
+					roombg.scrollFactor.set(0.9, 0.9);
+					roombg.active = false;
+					add(roombg);
+
+					beam = new FlxSprite(-600, -200).loadGraphic(Paths.image('break/BEAM', 'taeyai'));
+					beam.antialiasing = true;
+					beam.scrollFactor.set(0.9, 0.9);
+					beam.active = false;
+					add(beam);
+
+					hologramintro.frames = Paths.getSparrowAtlas('break/intro3', 'taeyai');
+					hologramintro.animation.addByPrefix("idle", "intro", 24);
+					hologramintro.antialiasing = true;
+					hologramintro.screenCenter();
+
+					hologramintro.scrollFactor.set();
+			}
 			default:
 			{
 					defaultCamZoom = 0.9;
@@ -880,6 +928,8 @@ class PlayState extends MusicBeatState
 				dad.x -= 150;
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
+			case 'taeyai-evil':
+				//dad.y -= 200;
 		}
 
 
@@ -928,6 +978,12 @@ class PlayState extends MusicBeatState
 				dad.x -= 50;
 				boyfriend.y += 450;
 				boyfriend.x += 50;
+			case 'lastroom':
+				//dad.y += 200;
+				dad.x -= 200;
+				boyfriend.x += 100;
+				boyfriend.y += 300;
+
 		}
 
 		if (!PlayStateChangeables.Optimize)
@@ -1156,7 +1212,7 @@ class PlayState extends MusicBeatState
 							});
 						});
 					});
-				case 'open-system' | 'wear-a-mask':
+				case 'open-system' | 'wear-a-mask' | 'last-hope':
 					intro();
 				case 'senpai':
 					schoolIntro(doof);
@@ -1997,6 +2053,7 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		floatvalve += 0.06;
 		#if !debug
 		perfectMode = false;
 		#end
@@ -2169,6 +2226,11 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
+		if (dad.curCharacter == "taeyai-evil"){
+			dad.y += Math.sin(floatvalve);
+			dad.y += Math.cos(floatvalve);
+		}
+
 		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
 		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
 
@@ -2195,7 +2257,7 @@ class PlayState extends MusicBeatState
 		/* if (FlxG.keys.justPressed.NINE)
 			FlxG.switchState(new Charting()); */
 
-		#if debug
+		
 		if (FlxG.keys.justPressed.SIX)
 		{
 			if (useVideo)
@@ -2231,7 +2293,7 @@ class PlayState extends MusicBeatState
 			#end
 		}
 
-		#end
+		
 
 		if (startingSong)
 		{
@@ -2401,6 +2463,8 @@ class PlayState extends MusicBeatState
 					case 'senpai-angry':
 						camFollow.y = dad.getMidpoint().y - 430;
 						camFollow.x = dad.getMidpoint().x - 100;
+					case 'taeyai-evil':
+						camFollow.x = dad.getMidpoint().x + 200;
 				}
 
 				if (dad.curCharacter == 'mom')
@@ -2440,6 +2504,9 @@ class PlayState extends MusicBeatState
 					case 'room':
 						camFollow.y = boyfriend.getMidpoint().y - 200;
 						camFollow.x = boyfriend.getMidpoint().x - 200;
+					case 'lastroom':
+						camFollow.x = boyfriend.getMidpoint().x - 200;
+						camFollow.y = boyfriend.getMidpoint().y - 350;
 				}
 			}
 		}
@@ -3980,6 +4047,8 @@ class PlayState extends MusicBeatState
 			}
 	
 		}
+
+		
 
 		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
 		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
