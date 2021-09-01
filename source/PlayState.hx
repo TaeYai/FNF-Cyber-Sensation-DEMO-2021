@@ -763,7 +763,7 @@ class PlayState extends MusicBeatState
 						hologramintro.screenCenter();
 						
 						hologramintro.scrollFactor.set();
-						add(hologramintro);
+						//add(hologramintro);
 						case "wear-a-mask":
 						
 						roombg = new FlxSprite(-600, -200).loadGraphic(Paths.image('BG1', 'taeyai'));
@@ -771,6 +771,14 @@ class PlayState extends MusicBeatState
 						roombg.scrollFactor.set(0.9, 0.9);
 						roombg.active = false;
 						add(roombg);
+
+						hologramintro.frames = Paths.getSparrowAtlas('intro2', 'taeyai');
+						hologramintro.animation.addByPrefix("idle", "intro", 24);
+						hologramintro.antialiasing = true;
+						hologramintro.screenCenter();
+
+						hologramintro.scrollFactor.set();
+						
 					}
 					
 				}
@@ -932,6 +940,7 @@ class PlayState extends MusicBeatState
 
 			add(dad);
 			add(boyfriend);
+			add(hologramintro);
 		}
 
 
