@@ -71,6 +71,7 @@ import Discord.DiscordClient;
 import Sys;
 import sys.FileSystem;
 #end
+import TitleState.hope;
 
 using StringTools;
 
@@ -244,6 +245,9 @@ class PlayState extends MusicBeatState
 	var hologramintro:FlxSprite = new FlxSprite(0, 0);
 	//TaeYai Evil
 	private var floatvalve:Float = 0;
+
+	//SAVE
+	
 
 
 	override public function create()
@@ -1246,6 +1250,8 @@ class PlayState extends MusicBeatState
 						camGame.visible = true;
 						intro();
 					}
+				case 'last-hope':
+					intro();
 				case 'senpai':
 					schoolIntro(doof);
 				case 'roses':
@@ -2953,9 +2959,15 @@ class PlayState extends MusicBeatState
 					switch(SONG.song.toLowerCase())
 					{
 						case "wear-a-mask":
+							if (FlxG.save.data.hope == null || FlxG.save.data.hope == false) {
+								FlxG.save.flush();
+								//Caching.hope.flush();
+								FlxG.save.data.hope = true;
+							}
+							hope.flush();
 								LoadingState.loadAndSwitchState(new VideoState("assets/videos/vid.webm", new CloseState()));
-								FlxG.save.data.hegone = true;
-								FlxG.switchState(new MainMenuState());
+								
+								//FlxG.switchState(new MainMenuState());
 								FlxG.sound.music.stop();
 				                vocals.stop();
 						default:
@@ -3029,8 +3041,8 @@ class PlayState extends MusicBeatState
 					FlxG.sound.music.stop();
 					switch(SONG.song.toLowerCase())
                     {
-					    case 'wear-a-mask':
-				            LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut2.webm",new PlayState()));
+					    case "wear-a-mask":
+				            LoadingState.loadAndSwitchState(new VideoState("assets/videos/vid.webm",new PlayState()));
 						//case 'release':
 						//	LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut3.webm",new PlayState()));
                         default:

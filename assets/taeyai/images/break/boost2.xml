@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="boost2.png">
+	<!-- Created with Adobe Animate version 19.2.1.408 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="boot0000" x="2" y="2" width="1291" height="728"/>
+	<SubTexture name="boot0001" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0002" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0003" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0004" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0005" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0006" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0007" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0008" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0009" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0010" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0011" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0012" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0013" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0014" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0015" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0016" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0017" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0018" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0019" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0020" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0021" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0022" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0023" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0024" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0025" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0026" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0027" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0028" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0029" x="2" y="733" width="1291" height="728"/>
+	<SubTexture name="boot0030" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0031" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0032" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0033" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0034" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0035" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0036" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0037" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0038" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0039" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0040" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0041" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0042" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0043" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0044" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0045" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0046" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0047" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0048" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0049" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0050" x="2" y="1464" width="1291" height="728"/>
+	<SubTexture name="boot0051" x="2" y="2195" width="1291" height="728"/>
+	<SubTexture name="boot0052" x="2" y="2195" width="1291" height="728"/>
+	<SubTexture name="boot0053" x="2" y="2195" width="1291" height="728"/>
+	<SubTexture name="boot0054" x="2" y="2195" width="1291" height="728"/>
+	<SubTexture name="boot0055" x="2" y="2195" width="1291" height="728"/>
+	<SubTexture name="boot0056" x="2" y="2195" width="1291" height="728"/>
+	<SubTexture name="boot0057" x="2" y="2195" width="1291" height="728"/>
+	<SubTexture name="boot0058" x="2" y="2195" width="1291" height="728"/>
+	<SubTexture name="boot0059" x="2" y="2195" width="1291" height="728"/>
+</TextureAtlas>

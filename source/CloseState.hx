@@ -11,7 +11,7 @@ import flixel.FlxG;
  * ...
  * @author ...
  */
-class CloseState extends FlxState
+class CloseState extends PlayState
 {
 
 	public function new() 
@@ -22,6 +22,9 @@ class CloseState extends FlxState
 	override public function create():Void 
 	{
 		super.create();
+		if (FlxG.save.data.hope == null || FlxG.save.data.hope == false) {
+			FlxG.save.data.hope = true;
+		}
 		
 		
 		//var warning:FlxSprite = new FlxSprite(0, 0);
@@ -29,7 +32,9 @@ class CloseState extends FlxState
 		//add(warning);
 	}
 	public override function update(elapsed){
-		
+		if (FlxG.save.data.hope == null || FlxG.save.data.hope == false) {
+			FlxG.save.data.hope = true;
+		}
 		Sys.sleep(2);
 		if (PlayState.streamer == true){
 			Sys.command('mshta vbscript:Execute("msgbox ""IF YOU THINK YOU READY WELL COME HERE."":close")');
