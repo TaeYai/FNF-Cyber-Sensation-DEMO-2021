@@ -140,27 +140,7 @@ class MainMenuState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 
-		if(FlxG.save.data.hope = true)
-			{
-
-						LoadingState.loadAndSwitchState(new HopeVideoState("assets/videos/vid.webm", function() {
-							PlayState.storyPlaylist = ['Last-Hope'];
-							PlayState.isStoryMode = true;
-				
-							PlayState.storyDifficulty = 2;
-				
-							PlayState.SONG = Song.loadFromJson(StringTools.replace(PlayState.storyPlaylist[0]," ", "-").toLowerCase() + '-hard', StringTools.replace(PlayState.storyPlaylist[0]," ", "-").toLowerCase());
-							PlayState.storyWeek = 7;
-							PlayState.campaignScore = 0;
-							//PlayState.cutscene = true;
-							new FlxTimer().start(1, function(tmr:FlxTimer)
-							{
-								LoadingState.loadAndSwitchState(new PlayState());
-								
-							});
-						}));
-			
-			}
+		
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
