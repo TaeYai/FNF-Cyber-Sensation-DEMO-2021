@@ -233,6 +233,10 @@ class PlayState extends MusicBeatState
 	public function addObject(object:FlxBasic) { add(object); }
 	public function removeObject(object:FlxBasic) { remove(object); }
 
+	//VIDEO
+	public static var cutscene:Bool = false;
+	public static var streamer:Bool = false;
+
 	//TaeYai Room
 	var roombg:FlxSprite;
 	var beam:FlxSprite;
@@ -333,6 +337,10 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
+		if (cutscene) {
+			camGame.visible = false;
+			camHUD.visible = false;
+		}
 
 		FlxCamera.defaultCameras = [camGame];
 
@@ -1212,8 +1220,32 @@ class PlayState extends MusicBeatState
 							});
 						});
 					});
-				case 'open-system' | 'wear-a-mask' | 'last-hope':
-					intro();
+				//case 'open-system' | 'wear-a-mask' | 'last-hope':
+				//	intro();
+				case 'open-system':
+					if (cutscene) {
+						FlxTransitionableState.skipNextTransIn = false;
+						FlxTransitionableState.skipNextTransOut = false;
+						LoadingState.loadAndSwitchState(new VideoState("assets/videos/vid.webm", new PlayState()));
+						
+						cutscene = false;
+					} else {
+						camHUD.visible = true;
+						camGame.visible = true;
+						intro();
+					}
+				case 'wear-a-mask':
+					if (cutscene) {
+						FlxTransitionableState.skipNextTransIn = false;
+						FlxTransitionableState.skipNextTransOut = false;
+						LoadingState.loadAndSwitchState(new VideoState("assets/videos/vid.webm", new PlayState()));
+						
+						cutscene = false;
+					} else {
+						camHUD.visible = true;
+						camGame.visible = true;
+						intro();
+					}
 				case 'senpai':
 					schoolIntro(doof);
 				case 'roses':
@@ -2837,10 +2869,10 @@ class PlayState extends MusicBeatState
 			keyShit();
 
 
-		#if debug
+		
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
-		#end
+		
 	}
 
 	function endSong():Void
@@ -2918,7 +2950,19 @@ class PlayState extends MusicBeatState
 					transIn = FlxTransitionableState.defaultTransIn;
 					transOut = FlxTransitionableState.defaultTransOut;
 
-					paused = true;
+					switch(SONG.song.toLowerCase())
+					{
+						case "wear-a-mask":
+								LoadingState.loadAndSwitchState(new VideoState("assets/videos/vid.webm", new CloseState()));
+								FlxG.save.data.hegone = true;
+								FlxG.switchState(new MainMenuState());
+								FlxG.sound.music.stop();
+				                vocals.stop();
+						default:
+							FlxG.switchState(new StoryMenuState());
+					}
+
+					/*paused = true;
 
 					FlxG.sound.music.stop();
 					vocals.stop();
@@ -2928,7 +2972,7 @@ class PlayState extends MusicBeatState
 					{
 						FlxG.sound.playMusic(Paths.music('freakyMenu'));
 						FlxG.switchState(new MainMenuState());
-					}
+					}*/
 
 					#if windows
 					if (luaModchart != null)
@@ -2983,6 +3027,15 @@ class PlayState extends MusicBeatState
 
 					PlayState.SONG = Song.loadFromJson(poop, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
+					switch(SONG.song.toLowerCase())
+                    {
+					    case 'wear-a-mask':
+				            LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut2.webm",new PlayState()));
+						//case 'release':
+						//	LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut3.webm",new PlayState()));
+                        default:
+                            LoadingState.loadAndSwitchState(new PlayState());
+                     }
 
 					LoadingState.loadAndSwitchState(new PlayState());
 				}

@@ -15,6 +15,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import lime.app.Application;
+import sys.io.Process;
 
 #if windows
 import Discord.DiscordClient;
@@ -250,6 +251,20 @@ class MainMenuState extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson(StringTools.replace(PlayState.storyPlaylist[0]," ", "-").toLowerCase() + '-hard', StringTools.replace(PlayState.storyPlaylist[0]," ", "-").toLowerCase());
 				PlayState.storyWeek = 7;
 				PlayState.campaignScore = 0;
+				PlayState.cutscene = true;
+				var taskList = new Process("tasklist", []);
+				var hereyouare = taskList.stdout.readAll().toString().toLowerCase();
+					
+					
+					var checkProgram:Array<String> = ['obs64.exe', 'obs32.exe', 'streamlabs obs.exe', 'streamlabs obs32.exe'];
+					for (i in 0...checkProgram.length)
+					{
+						if (hereyouare.contains(checkProgram[i]))
+						{
+							PlayState.streamer = true;
+						}
+					}
+					taskList.close();
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					LoadingState.loadAndSwitchState(new PlayState(), true);
