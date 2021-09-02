@@ -51,9 +51,8 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
-
-	static public var hope:FlxSave;
 	var intro2:Bool = false;
+	public static var comehere:Bool = false;
 
 	override public function create():Void
 	{
@@ -106,10 +105,6 @@ class TitleState extends MusicBeatState
 		
 		Highscore.load();
 
-		hope = new FlxSave();
-		hope.bind('funkin', 'vstaeyai');
-		trace(hope.path);
-
 		if (FlxG.save.data.weekUnlocked != null)
 		{
 			// FIX LATER!!!
@@ -124,15 +119,11 @@ class TitleState extends MusicBeatState
 				StoryMenuState.weekUnlocked[0] = true;
 		}
 
-		#if FREEPLAY
-		FlxG.switchState(new FreeplayState());
-		#elseif CHARTING
-		FlxG.switchState(new ChartingState());
-		#else
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
-			if(FlxG.save.data.hope = true)
+			if (FlxG.save.data.reset)
 				{
+					trace('beat');
 					startglitch();
 					transitioning = true;
 			
@@ -141,13 +132,14 @@ class TitleState extends MusicBeatState
 					skippedIntro = true;
 					remove(credGroup);
 				}
-			else
+				else
 				{
+					trace('not beat');
 					startIntro();
 				}
 			
 		});
-		#end
+		
 	}
 
 	var logoBl:FlxSprite;
@@ -194,8 +186,9 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		add(bg);
 
-
-				LoadingState.loadAndSwitchState(new HopeVideoState("assets/videos/vid.webm", function() {
+		new FlxTimer().start(1, function(tmr:FlxTimer)
+			{
+					LoadingState.loadAndSwitchState(new HopeVideoState("assets/videos/again.webm", function() {
 					PlayState.storyPlaylist = ['Last-Hope'];
 					PlayState.isStoryMode = true;
 		
@@ -208,9 +201,11 @@ class TitleState extends MusicBeatState
 					new FlxTimer().start(1, function(tmr:FlxTimer)
 					{
 						LoadingState.loadAndSwitchState(new PlayState());
+						FlxG.save.data.comeagain = false;
 						
 					});
 				}));
+		});
 			
 
 		FlxG.mouse.visible = false;

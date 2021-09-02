@@ -522,8 +522,10 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'TaeYai fly right', 24);
 				animation.addByPrefix('singDOWN', 'TaeYai fly down', 24);
 				animation.addByPrefix('singLEFT', 'TaeYai fly left', 24);
+				animation.addByPrefix('line', 'TaeYai fly I do0', 24);
 
 				addOffset('idle');
+				addOffset("line");
 				addOffset("singUP", 4, 60);
 				addOffset("singRIGHT", -100, -23);
 				addOffset("singLEFT", 40, 0);

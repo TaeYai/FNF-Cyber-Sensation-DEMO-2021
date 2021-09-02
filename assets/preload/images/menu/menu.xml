@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="menu.png">
+	<!-- Created with Adobe Animate version 19.2.1.408 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="credit idle0000" x="2" y="2" width="395" height="202"/>
+	<SubTexture name="credit idle0001" x="400" y="2" width="395" height="202"/>
+	<SubTexture name="credit idle0002" x="2" y="207" width="395" height="202"/>
+	<SubTexture name="credit selected0000" x="400" y="207" width="405" height="198"/>
+	<SubTexture name="freeplay idle0000" x="2" y="412" width="390" height="240" frameX="0" frameY="-2" frameWidth="390" frameHeight="242"/>
+	<SubTexture name="freeplay idle0001" x="395" y="412" width="390" height="240" frameX="0" frameY="0" frameWidth="390" frameHeight="242"/>
+	<SubTexture name="freeplay selected0000" x="2" y="655" width="400" height="253"/>
+	<SubTexture name="options idle0000" x="405" y="655" width="370" height="276" frameX="0" frameY="-2" frameWidth="370" frameHeight="282"/>
+	<SubTexture name="options idle0001" x="2" y="934" width="370" height="281" frameX="0" frameY="0" frameWidth="370" frameHeight="282"/>
+	<SubTexture name="options idle0002" x="375" y="934" width="370" height="280" frameX="0" frameY="-2" frameWidth="370" frameHeight="282"/>
+	<SubTexture name="options selected0000" x="2" y="1218" width="359" height="275"/>
+	<SubTexture name="story mode idle0000" x="364" y="1218" width="370" height="268" frameX="0" frameY="-1" frameWidth="370" frameHeight="274"/>
+	<SubTexture name="story mode idle0001" x="2" y="1496" width="368" height="274" frameX="0" frameY="0" frameWidth="370" frameHeight="274"/>
+	<SubTexture name="story mode idle0002" x="2" y="1496" width="368" height="274" frameX="0" frameY="0" frameWidth="370" frameHeight="274"/>
+	<SubTexture name="story mode selected0000" x="373" y="1496" width="365" height="273"/>
+</TextureAtlas>

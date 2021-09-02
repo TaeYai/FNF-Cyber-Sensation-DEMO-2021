@@ -71,7 +71,6 @@ import Discord.DiscordClient;
 import Sys;
 import sys.FileSystem;
 #end
-import TitleState.hope;
 
 using StringTools;
 
@@ -82,6 +81,7 @@ class PlayState extends MusicBeatState
 	public static var curStage:String = '';
 	public static var SONG:SwagSong;
 	public static var isStoryMode:Bool = false;
+	public static var introopen:Bool = false;
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
@@ -128,6 +128,7 @@ class PlayState extends MusicBeatState
 	private var curSection:Int = 0;
 
 	private var camFollow:FlxObject;
+	var babyArrow:FlxSprite;
 
 	private static var prevCamFollow:FlxObject;
 
@@ -759,7 +760,15 @@ class PlayState extends MusicBeatState
 			case 'room': //TaeYai Stage
 				{
 					defaultCamZoom = 0.6;
-					isStoryMode = true;
+					if(isStoryMode)
+						{
+							introopen = false;
+						}
+					else{
+						introopen = true;
+					}
+					
+					
 					curStage = 'room';
 					switch (SONG.song.toLowerCase())
 					{
@@ -820,7 +829,14 @@ class PlayState extends MusicBeatState
 			case 'lastroom':
 				{
 					defaultCamZoom = 0.6;
-					isStoryMode = true;
+					if(isStoryMode)
+						{
+							introopen = false;
+						}
+					else{
+						
+						introopen = true;
+					}
 					curStage = 'lastroom';
 
 					roombg = new FlxSprite(-600, -200).loadGraphic(Paths.image('break/BG', 'taeyai'));
@@ -1192,8 +1208,30 @@ class PlayState extends MusicBeatState
 		
 		trace('starting');
 
+		if(introopen)
+			{
+				isStoryMode = false;
+				switch (StringTools.replace(curSong," ", "-").toLowerCase())
+			{
+				case 'open-system':
+						camHUD.visible = true;
+						camGame.visible = true;
+						intro();
+					
+				case 'wear-a-mask':
+
+						camHUD.visible = true;
+						camGame.visible = true;
+						intro();
+					
+				//case 'last-hope':
+					//intro();
+			}
+			}
+
 		if (isStoryMode)
 		{
+			introopen = false;
 			switch (StringTools.replace(curSong," ", "-").toLowerCase())
 			{
 				case "winter-horrorland":
@@ -1230,7 +1268,7 @@ class PlayState extends MusicBeatState
 					if (cutscene) {
 						FlxTransitionableState.skipNextTransIn = false;
 						FlxTransitionableState.skipNextTransOut = false;
-						LoadingState.loadAndSwitchState(new VideoState("assets/videos/vid.webm", new PlayState()));
+						LoadingState.loadAndSwitchState(new VideoState("assets/videos/intro.webm", new PlayState()));
 						
 						cutscene = false;
 					} else {
@@ -1242,7 +1280,7 @@ class PlayState extends MusicBeatState
 					if (cutscene) {
 						FlxTransitionableState.skipNextTransIn = false;
 						FlxTransitionableState.skipNextTransOut = false;
-						LoadingState.loadAndSwitchState(new VideoState("assets/videos/vid.webm", new PlayState()));
+						LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut1.webm", new PlayState()));
 						
 						cutscene = false;
 					} else {
@@ -1856,7 +1894,7 @@ class PlayState extends MusicBeatState
 		for (i in 0...4)
 		{
 			// FlxG.log.add(i);
-			var babyArrow:FlxSprite = new FlxSprite(0, strumLine.y);
+			babyArrow = new FlxSprite(0, strumLine.y);
 
 			//defaults if no noteStyle was found in chart
 			var noteTypeCheck:String = 'normal';
@@ -2959,19 +2997,25 @@ class PlayState extends MusicBeatState
 					switch(SONG.song.toLowerCase())
 					{
 						case "wear-a-mask":
-							if (FlxG.save.data.hope == null || FlxG.save.data.hope == false) {
-								FlxG.save.flush();
-								//Caching.hope.flush();
-								FlxG.save.data.hope = true;
-							}
-							hope.flush();
-								LoadingState.loadAndSwitchState(new VideoState("assets/videos/vid.webm", new CloseState()));
+							TitleState.comehere = true;
+							FlxG.save.data.reset = true;
+							
+							LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut2.webm", new CloseState()));
 								
-								//FlxG.switchState(new MainMenuState());
-								FlxG.sound.music.stop();
-				                vocals.stop();
+							//FlxG.switchState(new MainMenuState());
+							FlxG.sound.music.stop();
+				             vocals.stop();
+						case "last-hope":
+							TitleState.comehere = false;
+							FlxG.save.data.reset = false;
+							FlxG.sound.music.stop();
+				            vocals.stop();
+							LoadingState.loadAndSwitchState(new VideoState("assets/videos/end.webm", new MainMenuState()));
+								
+							//FlxG.switchState(new MainMenuState());
+								
 						default:
-							FlxG.switchState(new StoryMenuState());
+							FlxG.switchState(new MainMenuState());
 					}
 
 					/*paused = true;
@@ -3042,14 +3086,14 @@ class PlayState extends MusicBeatState
 					switch(SONG.song.toLowerCase())
                     {
 					    case "wear-a-mask":
-				            LoadingState.loadAndSwitchState(new VideoState("assets/videos/vid.webm",new PlayState()));
+				            LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut1.webm",new PlayState()));
 						//case 'release':
 						//	LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut3.webm",new PlayState()));
                         default:
                             LoadingState.loadAndSwitchState(new PlayState());
                      }
 
-					LoadingState.loadAndSwitchState(new PlayState());
+					//LoadingState.loadAndSwitchState(new PlayState());
 				}
 			}
 			else
@@ -4021,6 +4065,104 @@ class PlayState extends MusicBeatState
 		gf.playAnim('scared', true);
 	}
 
+	function onenote()
+		{
+			for (note in playerStrums)
+				{
+					note.flipX = true;
+					note.x = 914;
+					trace('rightnote',note.x);
+				}
+		}
+	function resetnote()
+		{
+			for (note in playerStrums)
+				{
+					note.flipX = false;
+					playerStrums.members[0].x = 690;
+					playerStrums.members[1].x = 802;	
+					playerStrums.members[2].x = 914;
+					playerStrums.members[3].x = 1026;	
+				}
+			for (note in cpuStrums)
+				{
+					cpuStrums.members[0].x = 50;
+					cpuStrums.members[1].x = 162;	
+					cpuStrums.members[2].x = 274;
+					cpuStrums.members[3].x = 386;
+				}
+		}
+	function swapnote()
+		{
+			for (note in playerStrums)
+				{
+					playerStrums.members[0].x = 50;
+					playerStrums.members[1].x = 162;	
+					playerStrums.members[2].x = 274;
+					playerStrums.members[3].x = 386;	
+				}
+			for (note in cpuStrums)
+				{
+					cpuStrums.members[0].x = 690;
+					cpuStrums.members[1].x = 802;	
+					cpuStrums.members[2].x = 914;
+					cpuStrums.members[3].x = 1026;	
+				}
+		}
+	function halfnote()
+		{
+			for (note in playerStrums)
+				{
+					note.flipX = false;
+					playerStrums.members[0].x = 50;
+					playerStrums.members[3].x = 386;	
+				}
+			for (note in cpuStrums)
+				{
+					cpuStrums.members[0].x = 690;
+					cpuStrums.members[3].x = 1026;
+				}
+		}
+	function stair()
+		{
+			for (note in playerStrums)
+				{
+					note.flipX = true;
+					note.flipY = true;
+					playerStrums.members[0].x = 690;
+					playerStrums.members[1].x = 802;	
+					playerStrums.members[2].x = 914;
+					playerStrums.members[3].x = 1026;	
+				}
+			for (note in cpuStrums)
+				{
+					cpuStrums.members[0].x = 50;
+					cpuStrums.members[1].x = 274;	
+					cpuStrums.members[2].x = 802;
+					cpuStrums.members[3].x = 914;
+				}
+		}
+	
+		function idk()
+			{
+				for (note in playerStrums)
+					{
+						note.flipX = true;
+						note.flipY = true;
+						playerStrums.members[0].x = 914;
+						playerStrums.members[1].x = 1026;	
+						playerStrums.members[2].x = 274;
+						playerStrums.members[3].x = 50;	
+					}
+				for (note in cpuStrums)
+				{
+					cpuStrums.members[0].x = 50;
+					cpuStrums.members[1].x = 162;	
+					cpuStrums.members[2].x = 274;
+					cpuStrums.members[3].x = 386;
+				}
+			}
+
 	var danced:Bool = false;
 
 	override function stepHit()
@@ -4038,6 +4180,33 @@ class PlayState extends MusicBeatState
 			luaModchart.executeState('stepHit',[curStep]);
 		}
 		#end
+
+		if(curSong == 'Last-Hope' && dad.curCharacter == 'taeyai-evil')
+			{
+				switch(curStep)
+				{
+					case 1759:
+				
+						dad.playAnim('line', true);
+					case 1791:
+						//onenote();
+						swapnote();
+					case 1856:
+						halfnote();
+					case 1920:
+						stair();
+					case 1984:
+						swapnote();
+					case 2048:
+						
+						halfnote();
+					case 2176:
+						onenote();
+					case 2307:
+						FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: 0}, 1, {ease: FlxEase.circOut, startDelay: 0.5});
+				}
+			}
+
 
 		// yes this updates every step.
 		// yes this is bad
