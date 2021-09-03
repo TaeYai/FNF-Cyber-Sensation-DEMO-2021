@@ -210,7 +210,7 @@ class MainMenuState extends MusicBeatState
 			{
 				if (optionShit[curSelected] == 'credit')
 				{
-					fancyOpenURL("https://ninja-muffin24.itch.io/funkin");
+					LoadingState.loadAndSwitchState(new VideoState2("assets/videos/credit.webm", new MainMenuState()));
 				}
 				else
 				{

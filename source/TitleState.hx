@@ -253,12 +253,13 @@ class TitleState extends MusicBeatState
 		add(bg);
 
 		if(Main.watermarks) {
-			logoBl = new FlxSprite(-150, -100);
+			logoBl = new FlxSprite(0, 0);
 			logoBl.frames = Paths.getSparrowAtlas('KadeEngineLogoBumpin');
 			logoBl.antialiasing = true;
 			logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 			logoBl.animation.play('bump');
 			logoBl.updateHitbox();
+			logoBl.screenCenter();
 			// logoBl.screenCenter();
 			// logoBl.color = FlxColor.BLACK;
 		} else {
@@ -277,7 +278,7 @@ class TitleState extends MusicBeatState
 		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		gfDance.antialiasing = true;
-		add(gfDance);
+		//add(gfDance);
 		add(logoBl);
 
 		titleText = new FlxSprite(100, FlxG.height * 0.8);
@@ -405,13 +406,13 @@ class TitleState extends MusicBeatState
 					returnedData[0] = data.substring(0, data.indexOf(';'));
 					returnedData[1] = data.substring(data.indexOf('-'), data.length);
 				
-					FlxG.switchState(new MainMenuState());
+					FlxG.switchState(new Warning());
 					
 				}
 				
 				http.onError = function (error) {
 				  trace('error: $error');
-				  FlxG.switchState(new MainMenuState()); // fail but we go anyway
+				  FlxG.switchState(new Warning()); // fail but we go anyway
 				}
 				
 				http.request();
@@ -476,7 +477,7 @@ class TitleState extends MusicBeatState
 		switch (curBeat)
 		{
 			case 1:
-				createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
+				createCoolText(['TaeYai', 'Jzboy', 'Pee.ta.go.rad', 'kal','atomixx']);
 			// credTextShit.visible = true;
 			case 3:
 				addMoreText('present');
@@ -520,13 +521,13 @@ class TitleState extends MusicBeatState
 			// credTextShit.text = "Friday";
 			// credTextShit.screenCenter();
 			case 13:
-				addMoreText('Friday');
+				addMoreText('Cyber');
 			// credTextShit.visible = true;
 			case 14:
-				addMoreText('Night');
+				//addMoreText('Night');
 			// credTextShit.text += '\nNight';
 			case 15:
-				addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
+				addMoreText('SENSATION'); // credTextShit.text += '\nFunkin';
 
 			case 16:
 				skipIntro();

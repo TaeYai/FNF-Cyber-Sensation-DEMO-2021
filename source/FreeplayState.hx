@@ -47,7 +47,11 @@ class FreeplayState extends MusicBeatState
 			var data:Array<String> = initSonglist[i].split(':');
 			songs.push(new SongMetadata(data[0], Std.parseInt(data[2]), data[1]));
 		}
-
+		if (FlxG.save.data.beattae)
+			{
+				songs.push(new SongMetadata("last-hope", 7, "taeyai-evil"));
+			}
+		if(StoryMenuState.weekUnlocked[2]){initSonglist.push("GHOST:camellia:1");}
 		/* 
 			if (FlxG.sound.music != null)
 			{
@@ -220,10 +224,22 @@ class FreeplayState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		if (FlxG.keys.justPressed.LEFT)
-			changeDiff(-1);
-		if (FlxG.keys.justPressed.RIGHT)
-			changeDiff(1);
+		if (songs[curSelected].songName.toLowerCase() != "last-hope" && songs[curSelected].songName.toLowerCase() != "open-system" && songs[curSelected].songName.toLowerCase() != "wear-a-mask")
+			{
+				if (FlxG.keys.justPressed.RIGHT)
+					changeDiff(1);
+				if (FlxG.keys.justPressed.LEFT)
+					changeDiff(-1);
+			} 
+			else
+			{
+				curDifficulty = 2;
+				changeDiff();
+				if (FlxG.keys.justPressed.RIGHT)
+					changeDiff(0);
+				if (FlxG.keys.justPressed.LEFT)
+					changeDiff(0);
+			}
 
 		if (controls.BACK)
 		{

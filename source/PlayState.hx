@@ -244,9 +244,10 @@ class PlayState extends MusicBeatState
 	var beam:FlxSprite;
 	var swagCounter:Int;
 	var hologramintro:FlxSprite = new FlxSprite(0, 0);
+	
 	//TaeYai Evil
 	private var floatvalve:Float = 0;
-
+	var static1:FlxSprite = new FlxSprite(0, 0);
 	//SAVE
 	
 
@@ -760,13 +761,6 @@ class PlayState extends MusicBeatState
 			case 'room': //TaeYai Stage
 				{
 					defaultCamZoom = 0.6;
-					if(isStoryMode)
-						{
-							introopen = false;
-						}
-					else{
-						introopen = true;
-					}
 					
 					
 					curStage = 'room';
@@ -829,14 +823,6 @@ class PlayState extends MusicBeatState
 			case 'lastroom':
 				{
 					defaultCamZoom = 0.6;
-					if(isStoryMode)
-						{
-							introopen = false;
-						}
-					else{
-						
-						introopen = true;
-					}
 					curStage = 'lastroom';
 
 					roombg = new FlxSprite(-600, -200).loadGraphic(Paths.image('break/BG', 'taeyai'));
@@ -1208,26 +1194,6 @@ class PlayState extends MusicBeatState
 		
 		trace('starting');
 
-		if(introopen)
-			{
-				isStoryMode = false;
-				switch (StringTools.replace(curSong," ", "-").toLowerCase())
-			{
-				case 'open-system':
-						camHUD.visible = true;
-						camGame.visible = true;
-						intro();
-					
-				case 'wear-a-mask':
-
-						camHUD.visible = true;
-						camGame.visible = true;
-						intro();
-					
-				//case 'last-hope':
-					//intro();
-			}
-			}
 
 		if (isStoryMode)
 		{
@@ -2812,6 +2778,14 @@ class PlayState extends MusicBeatState
 									spr.centerOffsets();
 							});
 						}
+
+						if(dad.curCharacter == 'taeyai-evil')
+							{
+								if (FlxG.random.bool(10))
+									{
+										staticup();
+									}
+							}
 	
 						#if windows
 						if (luaModchart != null)
@@ -3008,6 +2982,7 @@ class PlayState extends MusicBeatState
 						case "last-hope":
 							TitleState.comehere = false;
 							FlxG.save.data.reset = false;
+							FlxG.save.data.beattae = true;
 							FlxG.sound.music.stop();
 				            vocals.stop();
 							LoadingState.loadAndSwitchState(new VideoState("assets/videos/end.webm", new MainMenuState()));
@@ -3930,6 +3905,14 @@ class PlayState extends MusicBeatState
 						case 0:
 							boyfriend.playAnim('singLEFT', true);
 					}
+
+					if(curSong == 'Last-Hope')
+						{
+							if (FlxG.random.bool(3))
+								{
+									picoup();
+								}
+						}
 		
 					#if windows
 					if (luaModchart != null)
@@ -3998,6 +3981,7 @@ class PlayState extends MusicBeatState
 	var trainCars:Int = 8;
 	var trainFinishing:Bool = false;
 	var trainCooldown:Int = 0;
+	var pissbf:Bool = true;
 
 	function trainStart():Void
 	{
@@ -4162,6 +4146,84 @@ class PlayState extends MusicBeatState
 					cpuStrums.members[3].x = 386;
 				}
 			}
+		function noleft()
+			{
+				for (note in cpuStrums)
+				{
+					note.visible = false;
+				}
+				for (note in playerStrums)
+						{
+							note.visible = true;
+						}
+			}
+			function noright()
+				{
+					for (note in playerStrums)
+					{
+						note.visible = false;
+					}
+					for (note in cpuStrums)
+						{
+							note.visible = true;
+						}
+				}
+		function mirror()
+			{
+				camGame.flashSprite.scaleX *= -1;
+				camHUD.flashSprite.scaleX *= -1;
+			}
+
+		function upsidedown()
+			{
+				camGame.flashSprite.scaleY *= -1;
+				camHUD.flashSprite.scaleY *= -1;
+			}
+		function resetcam()
+			{
+				camGame.flashSprite.scaleY *= 1;
+				camHUD.flashSprite.scaleY *= 1;
+				camGame.flashSprite.scaleX *= 1;
+				camHUD.flashSprite.scaleX *= 1;
+			}
+		function picoup()
+			{
+				//FlxG.random.bool(10)
+				var picoup:FlxSprite = new FlxSprite(FlxG.random.int(300, 1077), FlxG.random.int(0, 622));
+				picoup.loadGraphic(Paths.image('break/picoup' + FlxG.random.int(0,2), 'taeyai'));
+				picoup.updateHitbox();
+				picoup.alpha = 0;
+				picoup.antialiasing = true;
+				add(picoup);
+				picoup.cameras = [camHUD];
+				pissbf = false;
+				FlxTween.tween(picoup, {width: 1, alpha: 1}, 0.2, {ease: FlxEase.sineOut});
+				new FlxTimer().start(1.5 , function(tmr:FlxTimer)
+				{
+					pissbf = true;
+				});
+				new FlxTimer().start(2 , function(tmr:FlxTimer)
+				{
+					remove(picoup);
+				});
+			}
+		function staticup()
+			{
+				static1.frames = Paths.getSparrowAtlas('break/static', 'taeyai');
+				static1.animation.addByPrefix("idle", "static", 24);
+				static1.animation.play("idle");
+				static1.antialiasing = true;
+				static1.screenCenter();
+				static1.cameras = [camHUD];
+				static1.scrollFactor.set();
+				add(static1);
+
+				new FlxTimer().start(0.5 , function(tmr:FlxTimer)
+					{
+						remove(static1);
+					});
+
+			}
 
 	var danced:Bool = false;
 
@@ -4185,24 +4247,56 @@ class PlayState extends MusicBeatState
 			{
 				switch(curStep)
 				{
+					case 6 | 24 | 62 | 70 | 106 | 130 | 139:
+						//staticup();
+					case 152 | 218:
+						//picoup();
+					case 512 | 520 | 576 | 583 | 597 | 704 | 774 | 840 | 1407 | 1416 | 1423 | 1432 | 1439 | 1447 | 1455 | 1463 | 1471 | 1478 | 1484 | 1487 | 1491 | 1498 | 1501 | 1508 | 1515 | 1521 | 1525 | 1529 | 1532 | 1535 | 1540:
+						mirror();
+					case 525 | 589 | 608 | 800 | 1475 | 1481 | 1490 | 1496 | 1506 | 1511 | 1519 | 1530 | 1533 | 1542:
+						upsidedown();
+					case 515 | 523 | 529 | 579 | 587 | 594 | 640 | 768 | 832 | 896 | 1412 | 1420 | 1427 | 1436 | 1451 | 1460 | 1468 | 1473 | 1482 | 1486 | 1493 | 1500 | 1503 | 1509 | 1513 | 1517 | 1523 | 1527 | 1531 | 1534 | 1537 | 1579:
+						resetcam();
+
+					case 1554:
+						resetcam();
+					case 1555:
+						mirror();
+
+					case 1592 | 1595 | 1598 | 1653 | 1657 | 1660 | 1662 | 1719 | 1723 | 1726:
+						camGame.alpha = 0;
+						camHUD.alpha = 0;
+					case 1593 | 1596 | 1599 | 1655 | 1659 | 1661 | 1663 | 1721 | 1724 | 1727:
+						camGame.alpha = 1;
+						camHUD.alpha = 1;
+
 					case 1759:
-				
+						defaultCamZoom = 0.9;
 						dad.playAnim('line', true);
 					case 1791:
+						FlxG.camera.flash(FlxColor.WHITE, 1);
+						defaultCamZoom = 0.6;
+						
 						//onenote();
 						swapnote();
 					case 1856:
+						resetnote();
 						halfnote();
 					case 1920:
-						stair();
+						resetnote();
+						//noleft();
+						//stair();
 					case 1984:
+						resetnote();
 						swapnote();
 					case 2048:
-						
+						resetnote();
 						halfnote();
 					case 2176:
+						resetnote();
 						onenote();
 					case 2307:
+						resetnote();
 						FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: 0}, 1, {ease: FlxEase.circOut, startDelay: 0.5});
 				}
 			}
