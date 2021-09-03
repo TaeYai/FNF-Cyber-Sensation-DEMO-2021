@@ -2299,7 +2299,7 @@ class PlayState extends MusicBeatState
 		/* if (FlxG.keys.justPressed.NINE)
 			FlxG.switchState(new Charting()); */
 
-		
+	/*	
 		if (FlxG.keys.justPressed.SIX)
 		{
 			if (useVideo)
@@ -2335,7 +2335,7 @@ class PlayState extends MusicBeatState
 			#end
 		}
 
-		
+		*/
 
 		if (startingSong)
 		{
@@ -2888,8 +2888,8 @@ class PlayState extends MusicBeatState
 
 
 		
-		if (FlxG.keys.justPressed.ONE)
-			endSong();
+		//if (FlxG.keys.justPressed.ONE)
+			//endSong();
 		
 	}
 
@@ -4273,9 +4273,11 @@ class PlayState extends MusicBeatState
 					case 1759:
 						defaultCamZoom = 0.9;
 						dad.playAnim('line', true);
+						camHUD.alpha = 0;
 					case 1791:
 						FlxG.camera.flash(FlxColor.WHITE, 1);
 						defaultCamZoom = 0.6;
+						camHUD.alpha = 1;
 						
 						//onenote();
 						swapnote();
