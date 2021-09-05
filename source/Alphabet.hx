@@ -1,6 +1,6 @@
 package;
 
-import flixel.tweens.FlxEase
+import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import flixel.FlxSprite;
