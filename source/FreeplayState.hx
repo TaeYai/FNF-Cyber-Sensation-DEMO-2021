@@ -51,7 +51,6 @@ class FreeplayState extends MusicBeatState
 			{
 				songs.push(new SongMetadata("last-hope", 7, "taeyai-evil"));
 			}
-		if(StoryMenuState.weekUnlocked[2]){initSonglist.push("GHOST:camellia:1");}
 		/* 
 			if (FlxG.sound.music != null)
 			{
