@@ -1,6 +1,7 @@
+on: push
 jobs:
   build:
-    runs-on: [ubuntu-latest, macos-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: krdlab/setup-haxe@v1
         with:
